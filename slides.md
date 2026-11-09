@@ -587,6 +587,53 @@ The 40-bundle rules are mechanical: they change thousands of triples, but they d
 -->
 
 ---
+clicks: 2
+---
+
+# Where the effort goes
+
+<div class="text-sm muted -mt-2">The pipeline was meant to convert the schemas and fit them into ERA core. Most of the work compensates for the sources.</div>
+
+<div class="effort mt-4">
+  <div class="erow" v-for="r in [
+    { t: 'Repair the source', d: 'text, code meanings, encoding, unused and deprecated terms', n: 958, r: 12, k: 'src' },
+    { t: 'Harmonise what the sources did not', d: 'homonyms split, clashing names given their own terms', n: 202, r: 13, k: 'src' },
+    { t: 'Code lists', d: 'free text to schemes, copies merged, ERA lists reused', n: 264, r: 6, k: 'mix' },
+    { t: 'Ontology patterns', d: 'era:Message, OWL-Time, units, GeoSPARQL, order, ISO codes', n: 354, r: 13, k: 'mix' },
+    { t: 'Fit into ERA core', d: 'RINF IRIs for locations and organisations, ERA core namesakes', n: 220, r: 10, k: 'era' },
+  ]" :key="r.t">
+    <div class="elbl"><b>{{ r.t }}</b><span>{{ r.d }}</span></div>
+    <div class="etrack"><div class="ebar" :class="[r.k, { lit: ($clicks >= 1 && r.k === 'src') || ($clicks >= 2 && r.k === 'era') }]" :style="{ width: (100 * r.n / 958) + '%' }" /><span class="en">{{ r.n }} <small>· {{ r.r }} rules</small></span></div>
+  </div>
+</div>
+
+<div class="grid grid-cols-2 gap-4 mt-4 text-sm">
+<div v-click="1" class="card warn-card"><b>~1,160 of ~2,000</b> counted changes, by 25 of the 54 rules, only repair or harmonise the sources. Code lists and patterns are partly compensation too: coordinates three ways, no order, no units, no common message type.</div>
+<div v-click="2" class="card">Only <b>~220 changes</b> (about a tenth) are the ERA core fitting the pipeline was built for. The 40-bundle merge rules (DP/OP suffixes, shape segments, domain unions) exist because the sources reuse names.</div>
+</div>
+
+<style>
+.effort { display: flex; flex-direction: column; gap: 8px; }
+.erow { display: grid; grid-template-columns: 330px 1fr; gap: 14px; align-items: center; }
+.elbl { text-align: right; line-height: 1.15; font-size: 14px; }
+.elbl span { display: block; font-size: 10.5px; color: var(--c-ink-mod); }
+.etrack { display: flex; align-items: center; gap: 8px; }
+.ebar { height: 22px; border-radius: 5px; background: var(--c-stroke); transition: background .5s; }
+.ebar.lit.src { background: var(--c-amber); }
+.ebar.lit.era { background: var(--c-blue); }
+.ebar.mix { background: color-mix(in srgb, var(--c-amber) 35%, var(--c-stroke)); }
+.en { font-weight: 700; font-size: 14px; white-space: nowrap; }
+.en small { font-weight: 400; color: var(--c-ink-mod); }
+</style>
+
+<!--
+The question behind this slide: what is the pipeline actually doing? It was built to convert the TSI schemas and fit them into ERA core.
+These are the 54 rules of 20-clean and 30-harmonised, with the number of term changes each rule declares.
+1 The top two rows are pure compensation for the sources: repairing them and harmonising what they never harmonised. More than half of all changes. Code lists and patterns are partly that too.
+2 The ERA core fitting, the original job, is about a tenth. And even the mechanical merge rules exist because the sources reuse names for different things.
+-->
+
+---
 
 # Every decision is a written policy
 
